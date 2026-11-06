@@ -7,7 +7,7 @@ It has two parts:
 - A skill that teaches `POST https://www.postlane.email/v1/emails`
 - An MCP server with `send_email`, `get_email`, and `list_emails`
 
-Every install needs a key the user creates at https://www.postlane.email/app/api-keys. It starts with `pl_live_`. Use a key with Read activity or Full access if you want `list_emails`. Send-only keys can send and can read one message by id. The `from` address must be on a domain verified at https://www.postlane.email/app/domains. Claude Code asks for the key when the plugin is enabled and stores it as a sensitive setting. Do not read a key that is already on the machine, and do not commit one.
+Every install needs a key the user creates at https://www.postlane.email/app/api-keys. It starts with `pl_live_`. Use a key with Read activity or Full access if you want `list_emails`. Send-only keys can send and can read one message by id. The `from` address must be on a domain verified at https://www.postlane.email/app/domains. Do not read a key that is already on the machine, and do not commit one.
 
 ## Examples
 
@@ -27,7 +27,7 @@ claude plugin marketplace add zwebso/postlane
 claude plugin install postlane@postlane
 ```
 
-Claude Code asks for the API key when the plugin is enabled and keeps it in secure storage.
+The Claude directory listing is the skill only. It does not start a program on the user's computer. Application code calls the HTTP API with a key the user creates.
 
 ## Gemini CLI
 

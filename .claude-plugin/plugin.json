@@ -10,28 +10,10 @@
   "homepage": "https://www.postlane.email/docs",
   "repository": "https://github.com/zwebso/postlane",
   "license": "MIT",
-  "keywords": ["email", "transactional", "postlane", "password-reset", "notifications", "mcp"],
+  "keywords": ["email", "transactional", "postlane", "password-reset", "notifications"],
   "icon": "./assets/postlane-logo-cursor.png",
   "documentationUrl": "https://www.postlane.email/docs",
   "supportUrl": "https://www.postlane.email/contact",
   "privacyPolicyUrl": "https://www.postlane.email/privacy",
-  "termsOfServiceUrl": "https://www.postlane.email/terms",
-  "userConfig": {
-    "postlane_api_key": {
-      "type": "string",
-      "title": "Postlane API key",
-      "description": "Bearer key from https://www.postlane.email/app/api-keys. It starts with pl_live_.",
-      "sensitive": true,
-      "required": true
-    }
-  },
-  "mcpServers": {
-    "postlane": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/server.mjs"],
-      "env": {
-        "POSTLANE_API_KEY": "${user_config.postlane_api_key}"
-      }
-    }
-  }
+  "termsOfServiceUrl": "https://www.postlane.email/terms"
 }
