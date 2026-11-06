@@ -13,7 +13,7 @@
   "keywords": ["email", "transactional", "postlane", "password-reset", "notifications", "mcp"],
   "icon": "./assets/postlane-logo-cursor.png",
   "documentationUrl": "https://www.postlane.email/docs",
-  "supportUrl": "https://github.com/zwebso/postlane-plugin/issues",
+  "supportUrl": "https://www.postlane.email/contact",
   "privacyPolicyUrl": "https://www.postlane.email/privacy",
   "termsOfServiceUrl": "https://www.postlane.email/terms",
   "userConfig": {
@@ -21,7 +21,8 @@
       "type": "string",
       "title": "Postlane API key",
       "description": "Bearer key from https://www.postlane.email/app/api-keys. It starts with pl_live_.",
-      "sensitive": true
+      "sensitive": true,
+      "required": true
     }
   },
   "mcpServers": {

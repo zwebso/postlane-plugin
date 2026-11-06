@@ -1,6 +1,6 @@
 # Installing the Postlane MCP server
 
-The server is the npm package `postlane-mcp`. It needs Node.js 18 or later and one environment variable.
+The server is the npm package `postlane-mcp` at version 0.1.0. It needs Node.js 18 or later. The key is one the user creates. Do not read a key that is already on the machine.
 
 1. Ask the user for a Postlane API key. They create it at https://www.postlane.email/app/api-keys. It starts with `pl_live_`. Do not guess or invent a key, and do not write it into any file in their project.
 2. Add this entry to the MCP settings file:
@@ -10,9 +10,9 @@ The server is the npm package `postlane-mcp`. It needs Node.js 18 or later and o
   "mcpServers": {
     "postlane": {
       "command": "npx",
-      "args": ["-y", "postlane-mcp"],
+      "args": ["-y", "postlane-mcp@0.1.0"],
       "env": {
-        "POSTLANE_API_KEY": "pl_live_..."
+        "POSTLANE_API_KEY": "<the key the user just created>"
       }
     }
   }

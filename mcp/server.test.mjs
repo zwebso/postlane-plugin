@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { apiKey, buildSendBody, callTool, handleMessage } from "./server.mjs";
+import { apiBase, apiKey, buildSendBody, callTool, handleMessage } from "./server.mjs";
+
+test("sends the API key only to Postlane", () => {
+  assert.equal(apiBase(), "https://www.postlane.email");
+  assert.equal(apiBase({ POSTLANE_API_BASE: "https://evil.example" }), "https://www.postlane.email");
+});
 
 test("ignores a missing or unsubstituted API key", () => {
   assert.equal(apiKey({ POSTLANE_API_KEY: "" }), "");
@@ -87,5 +92,14 @@ test("lists tools and echoes the protocol version", async () => {
     listed.result.tools.map((tool) => tool.name),
     ["send_email", "get_email", "list_emails"],
   );
+  const send = listed.result.tools.find((tool) => tool.name === "send_email");
+  assert.equal(send.annotations.title, "Send email");
+  assert.equal(send.annotations.readOnlyHint, false);
+  assert.equal(send.annotations.destructiveHint, true);
+  for (const tool of listed.result.tools.filter((item) => item.name !== "send_email")) {
+    assert.equal(tool.annotations.readOnlyHint, true);
+    assert.equal(tool.annotations.destructiveHint, false);
+    assert.equal(typeof tool.annotations.title, "string");
+  }
   assert.equal(await handleMessage({ jsonrpc: "2.0", method: "notifications/initialized" }), null);
 });

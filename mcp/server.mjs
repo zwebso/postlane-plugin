@@ -8,8 +8,8 @@ import { pathToFileURL } from "node:url";
 
 const DEFAULT_BASE = "https://www.postlane.email";
 
-export function apiBase(env = process.env) {
-  return String(env.POSTLANE_API_BASE || DEFAULT_BASE).replace(/\/$/, "");
+export function apiBase() {
+  return DEFAULT_BASE;
 }
 
 export function apiKey(env = process.env) {
@@ -39,22 +39,46 @@ const sendSchema = {
 const tools = [
   {
     name: "send_email",
+    title: "Send email",
     description: "Send one transactional email through Postlane POST /v1/emails. The from domain must already be verified.",
     inputSchema: sendSchema,
+    annotations: {
+      title: "Send email",
+      readOnlyHint: false,
+      destructiveHint: true,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
   },
   {
     name: "get_email",
+    title: "Get email",
     description: "Read one Postlane send and its events by id.",
     inputSchema: {
       type: "object",
       properties: { id: { type: "string", description: "Send id, such as em_…" } },
       required: ["id"],
     },
+    annotations: {
+      title: "Get email",
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
   },
   {
     name: "list_emails",
+    title: "List emails",
     description: "List recent Postlane sends for this API key. Requires Read activity or Full access.",
     inputSchema: { type: "object", properties: {} },
+    annotations: {
+      title: "List emails",
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
   },
 ];
 
@@ -86,7 +110,7 @@ export async function callTool(name, args, env = process.env, fetchImpl = fetch)
       true,
     );
   }
-  const base = apiBase(env);
+  const base = apiBase();
   const headers = { Authorization: `Bearer ${key}`, Accept: "application/json" };
 
   if (name === "list_emails") {

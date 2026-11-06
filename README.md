@@ -7,7 +7,13 @@ It has two parts:
 - A skill that teaches `POST https://www.postlane.email/v1/emails`
 - An MCP server with `send_email`, `get_email`, and `list_emails`
 
-Every install needs a `pl_live_…` key from https://www.postlane.email/app/api-keys. Use a key with Read activity or Full access if you want `list_emails`. Send-only keys can send and can read one message by id. The `from` address must be on a domain verified at https://www.postlane.email/app/domains.
+Every install needs a key the user creates at https://www.postlane.email/app/api-keys. It starts with `pl_live_`. Use a key with Read activity or Full access if you want `list_emails`. Send-only keys can send and can read one message by id. The `from` address must be on a domain verified at https://www.postlane.email/app/domains. Claude Code asks for the key when the plugin is enabled and stores it as a sensitive setting. Do not read a key that is already on the machine, and do not commit one.
+
+## Examples
+
+- Send a welcome email when a user signs up, using Postlane.
+- Add a password reset email with the Reset your password template.
+- What DNS records do I need to verify my sending domain?
 
 ## Cursor
 
@@ -37,13 +43,15 @@ Install Postlane from the Plugins directory. That listing includes the skill onl
 
 ## Any MCP client (Cline, VS Code, Windsurf, Claude Desktop)
 
+The user creates the key, then enters that new value in the client secret field. Do not copy a key from an existing environment variable.
+
 ```json
 {
   "mcpServers": {
     "postlane": {
       "command": "npx",
-      "args": ["-y", "postlane-mcp"],
-      "env": { "POSTLANE_API_KEY": "pl_live_..." }
+      "args": ["-y", "postlane-mcp@0.1.0"],
+      "env": { "POSTLANE_API_KEY": "<the key the user just created>" }
     }
   }
 }
